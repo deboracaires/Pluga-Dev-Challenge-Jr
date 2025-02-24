@@ -1,9 +1,9 @@
-import React from 'react';
+import { SearchBarBox } from "./styles"
 
 const SearchBar = ({ onSearch }) => (
-  <input
+  <SearchBarBox
     type="text"
-    placeholder="Search for apps..."
+    placeholder="BUSCAR FERRAMENTA"
     onChange={(e) => onSearch(e.target.value)}
   />
 );

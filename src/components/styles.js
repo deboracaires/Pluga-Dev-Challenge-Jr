@@ -7,13 +7,14 @@ export const AppCardBox = styled.div`
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
-  width: 150px;
-  height: 150px;
-  margin: 10px;
+  width: 125px;
+  height: 125px;
+  margin-right: 30px;
+  margin-bottom: 30px;
 
   div {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     margin: 0 auto; 
     border-radius: 50%;
     background-color: ${(props) => props.color};
@@ -23,7 +24,7 @@ export const AppCardBox = styled.div`
   }
 
   img {
-    max-width: 75px;
+    max-width: 50px;
   }
 
   h3 {
@@ -33,5 +34,27 @@ export const AppCardBox = styled.div`
 
   &:hover {
     background-color: #e8e8e8;
+  }
+`;
+
+export const SearchBarBox = styled.input`
+  width: 60%;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding: 0 12px;    
+  font-size: 16px;    
+  border: 1px solid #ddd; 
+  border-radius: 5px;  
+
+  
+  &:focus {
+    outline: none;
+    border-color: #aaa;
+  }
+
+ 
+  &::placeholder {
+    color: #999;
   }
 `;

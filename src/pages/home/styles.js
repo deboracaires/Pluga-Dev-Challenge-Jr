@@ -2,7 +2,13 @@ import styled from 'styled-components';
 
 export const HomeBox = styled.div `
     display: flex;
-    max-width: 85%;
+    max-width: 60%;
     flex-wrap: wrap;
-    align-items: space-between;
+    justify-content: center;
+`;
+
+export const HomeContainer = styled.div `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
