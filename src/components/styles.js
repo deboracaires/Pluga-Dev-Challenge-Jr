@@ -29,7 +29,7 @@ export const AppCardBox = styled.div`
 
   h3 {
     font-size: 16px;
-    color: #333;
+    color: #787878;
   }
 
   &:hover {
@@ -45,6 +45,7 @@ export const SearchBarBox = styled.input`
   padding: 0 12px;    
   font-size: 16px;    
   border: 1px solid #ddd; 
+  background-color: #ddd;
   border-radius: 5px;  
 
   
@@ -55,10 +56,7 @@ export const SearchBarBox = styled.input`
 
  
   &::placeholder {
-    color: #999;
+    color: #7B7B7B;
+    padding-left: 10px;
   }
-`;
-
-export const ModalContainer = styled.div`
-
 `;

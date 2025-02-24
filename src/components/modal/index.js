@@ -23,6 +23,7 @@ const Modal = ({ app, viewedApps, onClose }) => {
       onClose();
     }
   };
+  console.log(app)
 
   return (
     <ModalOverlay onClick={handleOverlayClick}>
@@ -36,9 +37,8 @@ const Modal = ({ app, viewedApps, onClose }) => {
               <ModalTitle>{app.name}</ModalTitle>
             </ModalTitleBox>
             <ModalLink 
-              href={app.url} 
+              href={app.link} 
               target="_blank" 
-              rel="noopener noreferrer"
             >
               Acessar
             </ModalLink>
