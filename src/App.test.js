@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import Home from '../src/pages/home/index';
+import Modal from '../src/components/modal/index';
 import '@testing-library/jest-dom';
 import { getApps } from '../src/services/api';
 
@@ -143,5 +144,75 @@ describe('Home Page', () => {
       const link = screen.getByText('Acessar');
       expect(link).toHaveAttribute('href', 'http://example.com/a');
     });
+  });
+  test('desabilita botão próxima quando não há mais páginas', async () => {
+    getApps.mockResolvedValueOnce(mockApps);
+  
+    render(<Home />);
+    await waitFor(() => expect(screen.getByText('Ferramenta A')).toBeInTheDocument());
+  
+    fireEvent.click(screen.getByText('Próxima'));
+    expect(screen.getByText('Próxima')).toBeDisabled();
+  });
+
+  test('não renderiza modal se app for null', () => {
+    render(<Modal app={null} viewedApps={[]} onClose={jest.fn()} />);
+    expect(screen.queryByText('Acessar')).not.toBeInTheDocument();
+  });
+
+  test('os botões de paginação funcionam corretamente', async () => {
+    getApps.mockResolvedValueOnce(mockApps);
+    render(<Home />);
+    await waitFor(() => expect(screen.getByText('Ferramenta A')).toBeInTheDocument());
+    
+    expect(screen.getByText('Anterior')).toBeDisabled();
+    expect(screen.getByText('Próxima')).not.toBeDisabled();
+
+    fireEvent.click(screen.getByText('Próxima'));
+    await waitFor(() => expect(screen.getByText(/Página 2/i)).toBeInTheDocument());
+  
+    expect(screen.getByText('Anterior')).not.toBeDisabled();
+  });
+
+  test('o modal fecha ao clicar fora', async () => {
+    getApps.mockResolvedValueOnce(mockApps);
+    render(<Home />);
+    await waitFor(() => expect(screen.getByText('Ferramenta A')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText('Ferramenta A'));
+    await waitFor(() => expect(screen.getByText('Acessar')).toBeInTheDocument());
+    
+    fireEvent.click(screen.getByTestId('modal-overlay'));
+    await waitFor(() => {
+      expect(screen.queryByText('Acessar')).not.toBeInTheDocument();
+    });
+  });
+
+  test('filtra apps duplicados e atualiza viewedApps', async () => {
+    getApps.mockResolvedValueOnce(mockApps);
+    render(<Home />);
+    await waitFor(() => expect(screen.getByText('Ferramenta A')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByText('Ferramenta A'));
+    await waitFor(() => expect(screen.getByText('Acessar')).toBeInTheDocument());
+    
+    fireEvent.click(screen.getByTestId('modal-overlay'));
+    await waitFor(() => {
+      expect(screen.queryByText('Acessar')).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByText('Ferramenta B'));
+    await waitFor(() => expect(screen.getByText('Acessar')).toBeInTheDocument());
+    fireEvent.click(screen.getByTestId('modal-overlay'));
+    await waitFor(() => {
+      expect(screen.queryByText('Acessar')).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByText('Ferramenta A'));
+    await waitFor(() => expect(screen.getByTestId('modal-title').textContent).toBe('Ferramenta A'));
+    
+    const viewedAppsContainer = screen.getByTestId('viewed-apps');
+
+    expect(within(viewedAppsContainer).getByText('Ferramenta B')).toBeInTheDocument();
   });
 });
