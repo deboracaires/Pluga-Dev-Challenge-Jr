@@ -59,7 +59,7 @@ const Home = () => {
         <>
           <HomeBox>
             {displayedApps.map(app => (
-              <AppCard key={app.id} app={app} onClick={() => handleAppClick(app)} />
+              <AppCard key={app.app_id} app={app} onClick={() => handleAppClick(app)} />
             ))}
           </HomeBox>
 

@@ -26,7 +26,7 @@ const Modal = ({ app, viewedApps, onClose }) => {
   console.log(app)
 
   return (
-    <ModalOverlay onClick={handleOverlayClick}>
+    <ModalOverlay onClick={handleOverlayClick} data-testid="modal-overlay">
       <ModalContent color={app.color}>
         <ModalMainApp>
           <AppIcon color={app.color}>
@@ -34,7 +34,7 @@ const Modal = ({ app, viewedApps, onClose }) => {
           </AppIcon>
           <AppDetails>
             <ModalTitleBox>
-              <ModalTitle>{app.name}</ModalTitle>
+              <ModalTitle data-testid="modal-title">{app.name}</ModalTitle>
             </ModalTitleBox>
             <ModalLink 
               href={app.link} 
@@ -47,7 +47,7 @@ const Modal = ({ app, viewedApps, onClose }) => {
 
         <ModalHeading>Últimas ferramentas visualizadas</ModalHeading>
 
-        <ViewedApps>
+        <ViewedApps data-testid="viewed-apps">
           {viewedApps.map((vApp, index) => (
             <ViewedAppItem key={index}>
               <ViewedAppIcon color={vApp.color}>
