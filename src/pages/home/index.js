@@ -45,9 +45,9 @@ const Home = () => {
   const hasPrevPage = page > 1;
 
   const handleAppClick = (app) => {
-    setViewedApps(prev => [app, ...prev.filter(a => a.id !== app.id)].slice(0, 3));
+    setViewedApps(prev => [...prev, app].slice(-4));    
     setSelectedApp(app);
-  };
+  };  
 
   return (
     <HomeContainer>
@@ -85,7 +85,7 @@ const Home = () => {
       {selectedApp && (
         <Modal
           app={selectedApp}
-          viewedApps={viewedApps}
+          viewedApps={viewedApps.slice(0, 3)}
           onClose={() => setSelectedApp(null)}
         />
       )}

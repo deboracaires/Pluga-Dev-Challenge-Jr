@@ -58,3 +58,7 @@ export const SearchBarBox = styled.input`
     color: #999;
   }
 `;
+
+export const ModalContainer = styled.div`
+
+`;
