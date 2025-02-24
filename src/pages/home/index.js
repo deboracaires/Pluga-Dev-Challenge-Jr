@@ -45,9 +45,30 @@ const Home = () => {
   const hasPrevPage = page > 1;
 
   const handleAppClick = (app) => {
-    setViewedApps(prev => [...prev, app].slice(-4));    
+    let duplicated = false;
+    let duplicatedIndex = -1;
+  
+    viewedApps.forEach((vApp, index) => {
+      if (vApp.app_id === app.app_id) {
+        duplicated = true;
+        duplicatedIndex = index;
+      }
+    });
+  
+    if (duplicated) {
+      setViewedApps(prev => {
+        const updated = [...prev];
+        updated.splice(duplicatedIndex, 1);
+        return [...updated, app].slice(-4);
+      });
+    } else {
+      setViewedApps(prev => [...prev, app].slice(-4));
+    }
+  
     setSelectedApp(app);
-  };  
+  };
+  
+   
 
   return (
     <HomeContainer>
