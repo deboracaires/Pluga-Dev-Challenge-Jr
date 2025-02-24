@@ -3,7 +3,7 @@ import { getApps } from '../../services/api';
 import AppCard from '../../components/appcard';
 import Modal from '../../components/modal';
 import SearchBar from '../../components/searchbar';
-import { HomeBox, HomeContainer } from './styles';
+import { HomeBox, HomeContainer, PageIndicator, PaginationButton, PaginationContainer } from './styles';
 
 const Home = () => {
   const [apps, setApps] = useState([]);
@@ -63,22 +63,25 @@ const Home = () => {
             ))}
           </HomeBox>
 
-          
-          <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <button
+          <PaginationContainer>
+            <PaginationButton
               onClick={() => setPage(page - 1)}
               disabled={!hasPrevPage}
             >
               Anterior
-            </button>
-            <span style={{ margin: '0 10px' }}>Página {page}</span>
-            <button
+            </PaginationButton>
+
+            <PageIndicator>
+              Página {page}
+            </PageIndicator>
+
+            <PaginationButton
               onClick={() => setPage(page + 1)}
               disabled={!hasNextPage}
             >
               Próxima
-            </button>
-          </div>
+            </PaginationButton>
+          </PaginationContainer>
         </>
       )}
 
